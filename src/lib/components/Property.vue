@@ -23,7 +23,7 @@
         readonly
       >
         <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-          <template v-slot:activator="{ on }">
+          <template #activator="{ on }">
             <v-icon v-on="on">
               info
             </v-icon>
@@ -53,8 +53,8 @@
           :disabled="disabled"
         >
           <v-tooltip v-if="fullSchema.description" slot="append" left>
-            <template v-slot:activator="{ on }">
-              <v-icon v-on="{ on }">
+            <template #activator="{ on }">
+              <v-icon v-on="on">
                 info
               </v-icon>
             </template>
@@ -77,8 +77,8 @@
                :disabled="disabled"
       >
         <v-tooltip v-if="fullSchema.description" slot="append" left>
-          <template v-slot:activator="{ on }">
-            <v-icon slot="activator" v-on="{ on }">
+          <template #activator="{ on }">
+            <v-icon v-on="on">
               info
             </v-icon>
           </template>
@@ -121,14 +121,12 @@
         </template>
         <template slot="item" slot-scope="data">
           <select-icon v-if="itemIcon" :value="data.item" />
-          <v-list-tile-content>
-            <v-list-tile-title>{{ data.item }}</v-list-tile-title>
-          </v-list-tile-content>
+          {{ data.item }}
         </template>
 
         <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-          <template v-slot:activator="{ on }">
-            <v-icon slot="activator" v-on="{ on }">
+          <template #activator="{ on }">
+            <v-icon v-on="on">
               info
             </v-icon>
           </template>
@@ -163,14 +161,12 @@
         </template>
         <template slot="item" slot-scope="data">
           <select-icon v-if="itemIcon" :value="data.item[itemIcon]" />
-          <v-list-tile-content>
-            <v-list-tile-title>{{ data.item[itemTitle] }}</v-list-tile-title>
-          </v-list-tile-content>
+          {{ data.item[itemTitle] }}
         </template>
 
         <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-          <template v-slot:activator="{ on }">
-            <v-icon slot="activator" v-on="{ on }">
+          <template #activator="{ on }">
+            <v-icon v-on="on">
               info
             </v-icon>
           </template>
@@ -206,14 +202,12 @@
       </template>
       <template slot="item" slot-scope="data">
         <select-icon v-if="itemIcon" :value="data.item[itemIcon]" />
-        <v-list-tile-content>
-          <v-list-tile-title>{{ data.item[itemTitle] }}</v-list-tile-title>
-        </v-list-tile-content>
+        {{ data.item[itemTitle] }}
       </template>
 
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{ on }">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -251,14 +245,12 @@
       </template>
       <template slot="item" slot-scope="data">
         <select-icon v-if="itemIcon" :value="data.item[itemIcon]" />
-        <v-list-tile-content>
-          <v-list-tile-title>{{ data.item[itemTitle] }}</v-list-tile-title>
-        </v-list-tile-content>
+        {{ data.item[itemTitle] }}
       </template>
 
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{ on }">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -279,8 +271,8 @@
                 @input="input"
     >
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{ on }">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -301,8 +293,8 @@
                   @input="input"
     >
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{  on }">
+        <template #activator="{ on }">
+          <v-icon v-on="{  on }">
             info
           </v-icon>
         </template>
@@ -322,8 +314,8 @@
                   @input="input"
     >
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }" v-on="{ on }">
-          <v-icon slot="activator">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -347,8 +339,8 @@
                   @input="input"
     >
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{ on }">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -368,8 +360,8 @@
                 @input="input"
     >
       <v-tooltip v-if="fullSchema.description" slot="append" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{ on }">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -393,8 +385,8 @@
       @input="input"
     >
       <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-        <template v-slot:activator="{ on }">
-          <v-icon slot="activator" v-on="{ on }">
+        <template #activator="{ on }">
+          <v-icon v-on="on">
             info
           </v-icon>
         </template>
@@ -504,8 +496,8 @@
               @input="input"
             >
               <v-tooltip v-if="oneOfConstProp && oneOfConstProp.description" slot="append-outer" left>
-                <template v-slot:activator="{ on }">
-                  <v-icon slot="activator" v-on="{  on }">
+                <template #activator="{ on }">
+                  <v-icon v-on="{  on }">
                     info
                   </v-icon>
                 </template>
@@ -572,8 +564,8 @@
         </v-btn>
         <v-spacer />
         <v-tooltip v-if="fullSchema.description" left>
-          <template v-slot:activator="{ on }">
-            <v-icon slot="activator" v-on="{ on }">
+          <template #activator="{ on }">
+            <v-icon v-on="on">
               info
             </v-icon>
           </template>

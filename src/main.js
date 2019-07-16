@@ -10,6 +10,9 @@ import Swatches from 'vue-swatches'
 import 'vue-swatches/dist/vue-swatches.min.css'
 import { Sketch } from 'vue-color'
 
+Vue.config.devtools = process.env.NODE_ENV !== 'production'
+Vue.config.performance = process.env.NODE_ENV !== 'production'
+
 const vuetifyOptions = { }
 
 Vue.use(Vuetify)
