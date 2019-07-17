@@ -29,7 +29,6 @@ export default {
       return jrefs.resolve(this.schema)
     },
     fullOptions () {
-      const httpLib = this.axios || this.$http || this.$axios
       return Object.assign({}, {
         debug: false,
         httpLib,
