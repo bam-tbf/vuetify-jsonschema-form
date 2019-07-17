@@ -438,10 +438,14 @@
           <template v-if="fullSchema.allOf && fullSchema.allOf.length">
             <template v-if="!parentKey && fullSchema.allOf[0].title">
               <!-- Accordion / expansion panets at root level -->
-              <v-expansion-panels>
-                <v-expansion-panel :inset="options.accordionMode === 'inset'" :popout="options.accordionMode === 'popout'" focusable>
-                  <v-expansion-panel-content v-for="(currentAllOf, i) in fullSchema.allOf" :key="i">
-                    <span slot="header" style="font-weight:bold">{{ currentAllOf.title }}</span>
+              <v-expansion-panels accordion>
+                <v-expansion-panel
+                  v-for="(currentAllOf, i) in fullSchema.allOf" :key="i"
+                  :inset="options.accordionMode === 'inset'"
+                  :popout="options.accordionMode === 'popout'"
+                  focusable>
+                  <v-expansion-panel-header style="font-weight:bold">{{ currentAllOf.title }}</v-expansion-panel-header>
+                  <v-expansion-panel-content>
                     <v-card>
                       <v-card-text>
                         <property
