@@ -11,26 +11,28 @@
             full-width
             min-width="290px"
     >
-      <v-text-field
-        slot="activator"
-        v-model="modelWrapper[modelKey]"
-        :label="label"
-        :name="fullKey"
-        :required="required"
-        :rules="rules"
-        :clearable="!required"
-        prepend-icon="event"
-        readonly
-      >
-        <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
-          <template #activator="{ on }">
-            <v-icon v-on="on">
-              info
-            </v-icon>
-          </template>
-          <div class="vjsf-tooltip" v-html="htmlDescription" />
-        </v-tooltip>
-      </v-text-field>
+      <template #activator="{ on }">
+        <v-text-field
+          v-on="on"
+          v-model="modelWrapper[modelKey]"
+          :label="label"
+          :name="fullKey"
+          :required="required"
+          :rules="rules"
+          :clearable="!required"
+          prepend-icon="event"
+          readonly
+        >
+          <v-tooltip v-if="fullSchema.description" slot="append-outer" left>
+            <template #activator="{ on }">
+              <v-icon v-on="on">
+                info
+              </v-icon>
+            </template>
+            <div class="vjsf-tooltip" v-html="htmlDescription" />
+          </v-tooltip>
+        </v-text-field>
+      </template>
       <v-date-picker v-model="modelWrapper[modelKey]" no-title scrollable>
         <v-spacer />
         <v-btn text color="primary" @click="menu = false">
@@ -62,8 +64,8 @@
           </v-tooltip>
           &nbsp;&nbsp;
           <v-menu :close-on-content-click="false" :close-on-click="true" direction="bottom" offset-y>
-            <template slot="activator">
-              <div :style="`background-color: ${modelWrapper[modelKey]};`" :class="modelWrapper[modelKey] ? 'color-picker-trigger' : 'color-picker-trigger color-picker-trigger-empty'" />
+            <template #activator="{ on }">
+              <div v-on="on" :style="`background-color: ${modelWrapper[modelKey]};`" :class="modelWrapper[modelKey] ? 'color-picker-trigger' : 'color-picker-trigger color-picker-trigger-empty'" />
             </template>
             <color-picker :value="modelWrapper[modelKey]" :preset-colors="options.colors.swatches" @input="(val) => {modelWrapper[modelKey] = val.hex; input(); change()}" />
           </v-menu>
