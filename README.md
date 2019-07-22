@@ -15,9 +15,7 @@ yarn serve
 
 ## Installation
 
-```bash
-npm i --save @bam-tbf/vuetify2-jsonschema-form
-```
+Temporary: Build locally and include built js file from dist folder. Will be published later.
 
 ## Usage
 
