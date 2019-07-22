@@ -6,17 +6,14 @@ module.exports = {
     'title': 'Person',
     description: 'A few metadata about some person.',
     'type': 'object',
-    'x-flex-options': {
+    'x-layout-options': {
       'container': {
-        'grid-list-md': true,
         'text-xs-center': true
       },
-      'layout': {
-        'row': true,
-        'wrap': true
+      'row': {
       },
-      'flex': {
-        'xs12': true
+      'col': {
+        'cols': '12'
       }
     },
     required: ['firstName', 'lastName'],
@@ -58,8 +55,8 @@ This description can be a long text with markdown content.
       citizen: {
         description: 'Is this person a citizen of this country.',
         type: 'boolean',
-        'x-flex': {
-          'xs6': true,
+        'x-col': {
+          'cols': '6',
           'offset-xs3': true
         }
       },
