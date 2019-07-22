@@ -419,113 +419,121 @@
       </v-subheader>
 
       <v-slide-y-transition>
-        <div v-show="!foldable || !folded">
-          <p v-if="fullSchema.description">
-            {{ fullSchema.description }}
-          </p>
-          <property v-for="childProp in fullSchema.properties" :key="childProp.key"
-                    :schema="childProp"
-                    :model-wrapper="modelWrapper[modelKey]"
+        <v-container v-show="!foldable || !folded" v-bind="fullSchema['x-flex-options'].container">
+          <v-layout v-bind="fullSchema['x-flex-options'].layout">
+            <v-flex v-bind="fullSchema['x-flex-options'].flex">
+              <p v-if="fullSchema.description">
+                {{ fullSchema.description }}
+              </p>
+            </v-flex>
+            <v-flex v-for="childProp in fullSchema.properties" :key="childProp.key" v-bind="childProp['x-flex'] || fullSchema['x-flex-options'].flex">
+              <property
+                        :schema="childProp"
+                        :model-wrapper="modelWrapper[modelKey]"
+                        :model-root="modelRoot"
+                        :model-key="childProp.key"
+                        :parent-key="fullKey + '.'"
+                        :required="!!(fullSchema.required && fullSchema.required.includes(childProp.key))"
+                        :options="options"
+                        @error="e => $emit('error', e)"
+                        @change="e => $emit('change', e)"
+                        @input="e => $emit('input', e)"
+              />
+            </v-flex>
+
+              <!-- Sub containers for allOfs -->
+            <template v-if="fullSchema.allOf && fullSchema.allOf.length">
+              <template v-if="!parentKey && fullSchema.allOf[0].title">
+                <!-- Accordion / expansion panets at root level -->
+                <v-flex v-bind="fullSchema['x-flex-options'].flex">
+                  <v-expansion-panels accordion>
+                    <v-expansion-panel
+                      v-for="(currentAllOf, i) in fullSchema.allOf" :key="i"
+                      :inset="options.accordionMode === 'inset'"
+                      :popout="options.accordionMode === 'popout'"
+                      focusable>
+                      <v-expansion-panel-header style="font-weight:bold">{{ currentAllOf.title }}</v-expansion-panel-header>
+                      <v-expansion-panel-content>
+                        <v-card>
+                          <v-card-text>
+                            <property
+                              :schema="Object.assign({}, currentAllOf, {type: 'object', title: null})"
+                              :model-wrapper="subModels"
+                              :model-root="modelRoot"
+                              :model-key="'allOf-' + i"
+                              :parent-key="parentKey"
+                              :options="options"
+                              @error="e => $emit('error', e)"
+                              @change="e => $emit('change', e)"
+                              @input="e => $emit('input', e)"
+                            />
+                          </v-card-text>
+                        </v-card>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </v-flex>
+              </template>
+              <template v-else>
+                <!-- simple objects if we are at first level -->
+                <v-flex v-for="(currentAllOf, i) in (fullSchema.allOf || [])" :key="i">
+                  <property
+                    :schema="Object.assign({}, currentAllOf, {type: 'object'})"
+                    :model-wrapper="subModels"
                     :model-root="modelRoot"
-                    :model-key="childProp.key"
-                    :parent-key="fullKey + '.'"
-                    :required="!!(fullSchema.required && fullSchema.required.includes(childProp.key))"
+                    :model-key="'allOf-' + i"
+                    :parent-key="parentKey"
                     :options="options"
                     @error="e => $emit('error', e)"
                     @change="e => $emit('change', e)"
                     @input="e => $emit('input', e)"
-          />
-
-          <!-- Sub containers for allOfs -->
-          <template v-if="fullSchema.allOf && fullSchema.allOf.length">
-            <template v-if="!parentKey && fullSchema.allOf[0].title">
-              <!-- Accordion / expansion panets at root level -->
-              <v-expansion-panels accordion>
-                <v-expansion-panel
-                  v-for="(currentAllOf, i) in fullSchema.allOf" :key="i"
-                  :inset="options.accordionMode === 'inset'"
-                  :popout="options.accordionMode === 'popout'"
-                  focusable>
-                  <v-expansion-panel-header style="font-weight:bold">{{ currentAllOf.title }}</v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <v-card>
-                      <v-card-text>
-                        <property
-                          :schema="Object.assign({}, currentAllOf, {type: 'object', title: null})"
-                          :model-wrapper="subModels"
-                          :model-root="modelRoot"
-                          :model-key="'allOf-' + i"
-                          :parent-key="parentKey"
-                          :options="options"
-                          @error="e => $emit('error', e)"
-                          @change="e => $emit('change', e)"
-                          @input="e => $emit('input', e)"
-                        />
-                      </v-card-text>
-                    </v-card>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
+                  />
+                </v-flex>
+              </template>
             </template>
-            <template v-else>
-              <!-- simple objects if we are at first level -->
-              <property
-                v-for="(currentAllOf, i) in (fullSchema.allOf || [])" :key="i"
-                :schema="Object.assign({}, currentAllOf, {type: 'object'})"
-                :model-wrapper="subModels"
-                :model-root="modelRoot"
-                :model-key="'allOf-' + i"
-                :parent-key="parentKey"
-                :options="options"
-                @error="e => $emit('error', e)"
-                @change="e => $emit('change', e)"
-                @input="e => $emit('input', e)"
-              />
-            </template>
-          </template>
 
-          <!-- Sub container with a select for oneOfs -->
-          <template v-if="fullSchema.oneOf">
-            <v-select
-
-              v-model="currentOneOf"
-              :items="fullSchema.oneOf"
-              :disabled="disabled"
-              :item-value="item => {return oneOfConstProp ? item.properties[oneOfConstProp.key].const : item.title}"
-              :label="oneOfConstProp ? (oneOfConstProp.title || oneOfConstProp.key) : 'Type'"
-              :required="oneOfRequired"
-              :clearable="!oneOfRequired"
-              :rules="oneOfRules"
-              item-text="title"
-              return-object
-              @change="change"
-              @input="input"
-            >
-              <v-tooltip v-if="oneOfConstProp && oneOfConstProp.description" slot="append-outer" left>
-                <template #activator="{ on }">
-                  <v-icon v-on="{  on }">
-                    info
-                  </v-icon>
-                </template>
-                <div class="vjsf-tooltip" v-html="oneOfConstProp.htmlDescription" />
-              </v-tooltip>
-            </v-select>
-            <!--{{ currentOneOf }}-->
-            <template v-if="currentOneOf && showCurrentOneOf">
-              <property
-                :schema="Object.assign({}, currentOneOf, {title: null, type: 'object'})"
-                :model-wrapper="subModels"
-                :model-root="modelRoot"
-                :parent-key="parentKey"
-                :options="options"
-                model-key="currentOneOf"
-                @error="e => $emit('error', e)"
-                @change="e => $emit('change', e)"
-                @input="e => $emit('input', e)"
-              />
+            <!-- Sub container with a select for oneOfs -->
+            <template v-if="fullSchema.oneOf">
+              <v-select
+                v-model="currentOneOf"
+                :items="fullSchema.oneOf"
+                :disabled="disabled"
+                :item-value="item => {return oneOfConstProp ? item.properties[oneOfConstProp.key].const : item.title}"
+                :label="oneOfConstProp ? (oneOfConstProp.title || oneOfConstProp.key) : 'Type'"
+                :required="oneOfRequired"
+                :clearable="!oneOfRequired"
+                :rules="oneOfRules"
+                item-text="title"
+                return-object
+                @change="change"
+                @input="input"
+              >
+                <v-tooltip v-if="oneOfConstProp && oneOfConstProp.description" slot="append-outer" left>
+                  <template #activator="{ on }">
+                    <v-icon v-on="{  on }">
+                      info
+                    </v-icon>
+                  </template>
+                  <div class="vjsf-tooltip" v-html="oneOfConstProp.htmlDescription" />
+                </v-tooltip>
+              </v-select>
+              <!--{{ currentOneOf }}-->
+              <template v-if="currentOneOf && showCurrentOneOf">
+                <property
+                  :schema="Object.assign({}, currentOneOf, {title: null, type: 'object'})"
+                  :model-wrapper="subModels"
+                  :model-root="modelRoot"
+                  :parent-key="parentKey"
+                  :options="options"
+                  model-key="currentOneOf"
+                  @error="e => $emit('error', e)"
+                  @change="e => $emit('change', e)"
+                  @input="e => $emit('input', e)"
+                />
+              </template>
             </template>
-          </template>
-        </div>
+          </v-layout>
+        </v-container>
       </v-slide-y-transition>
     </div>
 
@@ -826,6 +834,7 @@ export default {
         model = this.defaultValue(this.fullSchema)
         if (this.fullSchema.default !== undefined) model = JSON.parse(JSON.stringify(this.fullSchema.default))
       }
+
       // const always wins
       if (this.fullSchema.const !== undefined) model = this.fullSchema.const
 
