@@ -94,3 +94,7 @@ I you don't use a build tool, and want to load the library through script tags, 
   ...
 </script>
 ```
+
+## Acknowledgements
+
+Gratefully forked and extended from [koumoul-dev/vuetify-jsonschema-form](https://github.com/koumoul-dev/vuetify-jsonschema-form.git) to support Vuetify 2.x and configurable flexbox layouts.
