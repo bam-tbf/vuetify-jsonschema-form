@@ -4,34 +4,33 @@
       <v-toolbar-title>vuetify-jsonschema-form demo</v-toolbar-title>
     </v-app-bar>
     <v-content>
-      <v-container fluid grid-list-md>
-        <v-layout row>
-          <v-flex xs6>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="6">
             <h2 class="title my-4">
               Schema:
             </h2>
-            <v-layout row wrap>
-              <v-flex xs6>
+            <v-row>
+              <v-col cols="6">
                 <v-select v-model="example" :items="examples" :return-object="true" item-text="title" label="Choose an example" @change="applyExample" />
-              </v-flex>
-              <v-flex xs6>
+              </v-col>
+              <v-col cols="6">
                 <v-container>
-                  <v-layout row wrap>
-                    <v-spacer />
+                  <v-row>
                     <v-btn color="primary" @click="applySchema">
                       Apply
                     </v-btn>
                     <v-btn @click="formatSchema">
                       Format
                     </v-btn>
-                  </v-layout>
+                  </v-row>
                 </v-container>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <v-textarea v-model="schemaStr" :error-messages="schemaError ? [schemaError.message] : []" :rows="20" />
-          </v-flex>
-          <v-flex xs6>
+          </v-col>
+          <v-col cols="6">
             <h2 class="title my-4">
               Form
               <v-chip v-if="formValid" color="success">
@@ -60,8 +59,8 @@
               Data:
             </h2>
             <pre>{{ JSON.stringify(dataObject, null, 2) }}</pre>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
     </v-content>
   </v-app>

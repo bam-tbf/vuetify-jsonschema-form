@@ -34,7 +34,7 @@
         </v-text-field>
       </template>
       <v-date-picker v-model="modelWrapper[modelKey]" no-title scrollable>
-        <v-spacer />
+        <div class="flex-grow-1"></div>
         <v-btn text color="primary" @click="menu = false">
           Cancel
         </v-btn>
@@ -419,14 +419,14 @@
       </v-subheader>
 
       <v-slide-y-transition>
-        <v-container v-show="!foldable || !folded" v-bind="fullSchema['x-flex-options'].container">
-          <v-layout v-bind="fullSchema['x-flex-options'].layout">
-            <v-flex v-bind="fullSchema['x-flex-options'].flex">
+        <v-container v-show="!foldable || !folded" v-bind="fullSchema['x-layout-options'].container">
+          <v-row v-bind="fullSchema['x-layout-options'].row">
+            <v-col v-bind="fullSchema['x-layout-options'].col">
               <p v-if="fullSchema.description">
                 {{ fullSchema.description }}
               </p>
-            </v-flex>
-            <v-flex v-for="childProp in fullSchema.properties" :key="childProp.key" v-bind="childProp['x-flex'] || fullSchema['x-flex-options'].flex">
+            </v-col>
+            <v-col v-for="childProp in fullSchema.properties" :key="childProp.key" v-bind="childProp['x-col'] || fullSchema['x-layout-options'].col">
               <property
                         :schema="childProp"
                         :model-wrapper="modelWrapper[modelKey]"
@@ -439,13 +439,13 @@
                         @change="e => $emit('change', e)"
                         @input="e => $emit('input', e)"
               />
-            </v-flex>
+            </v-col>
 
               <!-- Sub containers for allOfs -->
             <template v-if="fullSchema.allOf && fullSchema.allOf.length">
               <template v-if="!parentKey && fullSchema.allOf[0].title">
                 <!-- Accordion / expansion panets at root level -->
-                <v-flex v-bind="fullSchema['x-flex-options'].flex">
+                <v-col v-bind="fullSchema['x-layout-options'].col">
                   <v-expansion-panels accordion>
                     <v-expansion-panel
                       v-for="(currentAllOf, i) in fullSchema.allOf" :key="i"
@@ -472,11 +472,11 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
                   </v-expansion-panels>
-                </v-flex>
+                </v-col>
               </template>
               <template v-else>
                 <!-- simple objects if we are at first level -->
-                <v-flex v-for="(currentAllOf, i) in (fullSchema.allOf || [])" :key="i">
+                <v-col v-for="(currentAllOf, i) in (fullSchema.allOf || [])" :key="i">
                   <property
                     :schema="Object.assign({}, currentAllOf, {type: 'object'})"
                     :model-wrapper="subModels"
@@ -488,7 +488,7 @@
                     @change="e => $emit('change', e)"
                     @input="e => $emit('input', e)"
                   />
-                </v-flex>
+                </v-col>
               </template>
             </template>
 
@@ -532,7 +532,7 @@
                 />
               </template>
             </template>
-          </v-layout>
+          </v-row>
         </v-container>
       </v-slide-y-transition>
     </div>
@@ -571,12 +571,12 @@
 
     <!-- Dynamic size array of complex types sub container -->
     <div v-else-if="fullSchema.type === 'array'">
-      <v-layout row class="mt-2 mb-1 pr-1">
+      <v-row  class="mt-2 mb-1 pr-1">
         <v-subheader>{{ label }}</v-subheader>
         <v-btn v-if="!disabled && !(fromUrl || fullSchema.fromData)" icon color="primary" @click="modelWrapper[modelKey].push(fullSchema.items.default || defaultValue(fullSchema.items)); change(); input()">
           <v-icon>add</v-icon>
         </v-btn>
-        <v-spacer />
+        <div class="flex-grow-1"></div>
         <v-tooltip v-if="fullSchema.description" left>
           <template #activator="{ on }">
             <v-icon v-on="on">
@@ -585,19 +585,19 @@
           </template>
           <div class="vjsf-tooltip" v-html="htmlDescription" />
         </v-tooltip>
-      </v-layout>
+      </v-row>
 
-      <v-container v-if="modelWrapper[modelKey] && modelWrapper[modelKey].length" grid-list-md class="pt-0 px-2">
-        <v-layout row wrap>
+      <v-container v-if="modelWrapper[modelKey] && modelWrapper[modelKey].length" class="pt-0 px-2">
+        <v-row>
           <draggable v-model="modelWrapper[modelKey]" handle=".handle" style="width: 100%;">
-            <v-flex v-for="(itemModel, i) in modelWrapper[modelKey]" :key="i" xs12>
+            <v-col v-for="(itemModel, i) in modelWrapper[modelKey]" :key="i" cols="12">
               <v-card class="array-card">
                 <v-card-title primary-title class="pa-0">
                   <v-btn v-if="!disabled && fullSchema['x-sortable'] !== false" text icon class="handle">
                     <v-icon>reorder</v-icon>
                   </v-btn>
                   <span v-if="itemTitle && modelWrapper[modelKey][i]">{{ modelWrapper[modelKey][i][itemTitle] }}</span>
-                  <v-spacer />
+                  <div class="flex-grow-1"></div>
                   <v-btn v-if="!disabled && !(fromUrl || fullSchema.fromData)" text icon color="warning" @click="modelWrapper[modelKey].splice(i, 1); change(); input()">
                     <v-icon>delete</v-icon>
                   </v-btn>
@@ -615,9 +615,9 @@
                   />
                 </v-card-text>
               </v-card>
-            </v-flex>
+            </v-col>
           </draggable>
-        </v-layout>
+        </v-row>
       </v-container>
     </div>
 

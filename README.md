@@ -1,17 +1,21 @@
 # vuetify2-jsonschema-form
 
-Generate forms for the [Vuetify 2.x](https://vuetifyjs.com/en/) UI library (vuejs) based on annotated JSON schemas.
+Generate forms for the [Vuetify 2.x](https://vuetifyjs.com/en/) UI library (Vue.js) based on annotated JSON schemas.
 
 Using Vuetify 2.x with ability to pass flexbox options to manage layout.
 
-For a view of all the functionalities check the [demo](https://koumoul-dev.github.io/vuetify-jsonschema-form/latest/).
+For a view of all the functionalities run the demo
+
+```bash
+yarn
+yarn serve
+# Visit the demo at localhost:8080
+```
 
 
 ## Installation
 
-```bash
-npm i --save @bam-tbf/vuetify-jsonschema-form
-```
+Temporary: Build locally and include built js file from dist folder. Will be published later.
 
 ## Usage
 
@@ -31,8 +35,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Swatches from 'vue-swatches'
 import 'vue-swatches/dist/vue-swatches.min.css'
-import VJsonschemaForm from '@koumoul/vuetify-jsonschema-form'
-import '@koumoul/vuetify-jsonschema-form/dist/main.css'
+import VJsonschemaForm from '@bam-tbf/vuetify2-jsonschema-form'
+import '@bam-tbf/vuetify2-jsonschema-form/dist/main.css'
 import { Sketch } from 'vue-color'
 
 Vue.use(Vuetify)
@@ -79,18 +83,11 @@ See the example json schemas in the src/demo/examples folder for additional deta
 import VJsonschemaForm from '@bam-tbf/vuetify2-jsonschema-form/lib/index.vue'
 ```
 
-I you don't use a build tool, and want to load the library through script tags, you can do something like this.
+## Roadmap
 
-```html
-...
-<script src="https://cdn.jsdelivr.net/npm/@bam-tbf/vuetify2-jsonschema-form@0.26/dist/main.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@bam-tbf/vuetify2-jsonschema-form@0.26/dist/main.css" rel="stylesheet">
-...
-<script>
-  ...
-  components: {
-    "v-jsonschema-form": VJsonschemaForm.default
-  }
-  ...
-</script>
-```
+This is a work in progress and will be extended in the next several months (2019).
+
+
+## Acknowledgements
+
+Gratefully forked and extended from [koumoul-dev/vuetify-jsonschema-form](https://github.com/koumoul-dev/vuetify-jsonschema-form.git) to support Vuetify 2.x and configurable flexbox layouts.

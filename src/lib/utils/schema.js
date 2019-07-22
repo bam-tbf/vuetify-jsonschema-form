@@ -26,22 +26,19 @@ schemaUtils.prepareFullSchema = (schema, modelWrapper, modelKey) => {
   fullSchema.dependencies = fullSchema.dependencies || {}
 
   // set default layout if needed
-  if (!fullSchema['x-flex-options']) fullSchema['x-flex-options'] = {}
-  if (!fullSchema['x-flex-options'].container) {
-    fullSchema['x-flex-options'].container = {
-      'grid-list-md': true,
+  if (!fullSchema['x-layout-options']) fullSchema['x-layout-options'] = {}
+  if (!fullSchema['x-layout-options'].container) {
+    fullSchema['x-layout-options'].container = {
       'text-xs-center': true
     }
   }
-  if (!fullSchema['x-flex-options'].layout) {
-    fullSchema['x-flex-options'].layout = {
-      'row': true,
-      'wrap': true
+  if (!fullSchema['x-layout-options'].row) {
+    fullSchema['x-layout-options'].row = {
     }
   }
-  if (!fullSchema['x-flex-options'].flex) {
-    fullSchema['x-flex-options'].flex = {
-      'xs12': true
+  if (!fullSchema['x-layout-options'].col) {
+    fullSchema['x-layout-options'].col = {
+      'cols': '12'
     }
   }
 
