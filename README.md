@@ -1,19 +1,16 @@
-# vuetify-jsonschema-form
+# vuetify2-jsonschema-form
 
-Generate forms for the [vuetify](https://vuetifyjs.com/en/) UI library (vuejs) based on annotated JSON schemas.
+Generate forms for the [Vuetify 2.x](https://vuetifyjs.com/en/) UI library (vuejs) based on annotated JSON schemas.
 
 Using Vuetify 2.x with ability to pass flexbox options to manage layout.
 
 For a view of all the functionalities check the [demo](https://koumoul-dev.github.io/vuetify-jsonschema-form/latest/).
 
-## Acknowledgements
-
-Gratefully forked and extended from [koumoul-dev/vuetify-jsonschema-form](https://github.com/koumoul-dev/vuetify-jsonschema-form).
 
 ## Installation
 
 ```bash
-npm i --save @tbf-bam/vuetify-jsonschema-form
+npm i --save @bam-tbf/vuetify-jsonschema-form
 ```
 
 ## Usage
@@ -79,15 +76,15 @@ The library can also be loaded from source if you use [Vuetify "à la carte"](ht
 See the example json schemas in the src/demo/examples folder for additional details on usage.
 
 ```js
-import VJsonschemaForm from '@tbf-bam/vuetify-jsonschema-form/lib/index.vue'
+import VJsonschemaForm from '@bam-tbf/vuetify2-jsonschema-form/lib/index.vue'
 ```
 
 I you don't use a build tool, and want to load the library through script tags, you can do something like this.
 
 ```html
 ...
-<script src="https://cdn.jsdelivr.net/npm/@tbf-bam/vuetify-jsonschema-form@0.26/dist/main.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@tbf-bam/vuetify-jsonschema-form@0.26/dist/main.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@bam-tbf/vuetify2-jsonschema-form@0.26/dist/main.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@bam-tbf/vuetify2-jsonschema-form@0.26/dist/main.css" rel="stylesheet">
 ...
 <script>
   ...
