@@ -4,13 +4,13 @@ Generate forms for the [Vuetify 2.x](https://vuetifyjs.com/en/) UI library (vuej
 
 Using Vuetify 2.x with ability to pass flexbox options to manage layout.
 
-For a view of all the functionalities check the [demo](https://koumoul-dev.github.io/vuetify-jsonschema-form/latest/).
+For a view of all the functionalities check the [demo](https://koumoul-dev.github.io/vuetify2-jsonschema-form/latest/).
 
 
 ## Installation
 
 ```bash
-npm i --save @bam-tbf/vuetify-jsonschema-form
+npm i --save @bam-tbf/vuetify2-jsonschema-form
 ```
 
 ## Usage
@@ -31,8 +31,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Swatches from 'vue-swatches'
 import 'vue-swatches/dist/vue-swatches.min.css'
-import VJsonschemaForm from '@koumoul/vuetify-jsonschema-form'
-import '@koumoul/vuetify-jsonschema-form/dist/main.css'
+import VJsonschemaForm from '@bam-tbf/vuetify2-jsonschema-form'
+import '@bam-tbf/vuetify2-jsonschema-form/dist/main.css'
 import { Sketch } from 'vue-color'
 
 Vue.use(Vuetify)
